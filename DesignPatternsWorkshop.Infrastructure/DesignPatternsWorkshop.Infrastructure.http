@@ -1,0 +1,6 @@
+@DesignPatternsWorkshop.Infrastructure_HostAddress = http://localhost:5168
+
+GET {{DesignPatternsWorkshop.Infrastructure_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
