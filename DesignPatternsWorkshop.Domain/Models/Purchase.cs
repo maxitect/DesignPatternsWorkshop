@@ -8,7 +8,7 @@ public class Purchase
     #region properties
     private IDiscountStrategy _discount;
     public int Id { get; set; }
-    public List<Product> Products { get; set; }
+    public List<Product> Products { get; set; } = new();
     #endregion
 
     #region constructor
