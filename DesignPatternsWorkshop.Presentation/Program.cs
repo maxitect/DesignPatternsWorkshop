@@ -5,6 +5,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddHttpClient("PurchaseClient", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5168");
+});
+builder.Services.AddSingleton(sp =>
+{
+    var factory = sp.GetService<IHttpClientFactory>()!;
+    var httpClient = factory.CreateClient("PurchaseClient");
+
+    return httpClient;
+});
 
 var app = builder.Build();
 
