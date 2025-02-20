@@ -16,6 +16,7 @@ public class PurchaseInvoker
     /// <param name="command"></param>
     public void ExecuteCommand(IPurchaseCommand command)
     {
+        command.Execute();
         _undoStack.Push(command);
         _redoStack.Clear();
     }
