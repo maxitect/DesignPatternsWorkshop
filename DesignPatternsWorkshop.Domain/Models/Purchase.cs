@@ -3,7 +3,7 @@ using DesignPatternsWorkshop.Domain.Strategies;
 
 namespace DesignPatternsWorkshop.Domain.Models;
 
-public class Transaction
+public class Purchase
 {
     #region properties
     private IDiscountStrategy _discount;
@@ -12,7 +12,7 @@ public class Transaction
     #endregion
 
     #region constructor
-    public Transaction()
+    public Purchase()
     {
         _discount = new NoDiscountStrategy();
     }
