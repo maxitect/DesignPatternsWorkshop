@@ -2,30 +2,9 @@
 
 namespace DesignPatternsWorkshop.Application.Commands;
 
-public class RemoveProductCommand : IPurchaseCommand
+public record RemoveProductCommand(Purchase purchase, Product product) : IPurchaseCommand
 {
-    #region properties
-    private readonly Purchase _purchase;
-    private readonly Product _product;
-    #endregion
+    public void Execute() => purchase.Products.Remove(product);
 
-    #region constructor
-    public RemoveProductCommand(Purchase purchase, Product product)
-    {
-        _purchase = purchase;
-        _product = product;
-    }
-    #endregion
-
-    #region methods
-    public void Execute()
-    {
-        _purchase.Products.Remove(_product);
-    }
-
-    public void Revert()
-    {
-        _purchase.Products.Add(_product);
-    }
-    #endregion
+    public void Revert() => purchase.Products.Add(product);
 }
