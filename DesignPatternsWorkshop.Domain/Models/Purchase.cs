@@ -8,7 +8,7 @@ public class Purchase
     #region properties
     private IDiscountStrategy _discount;
     public int Id { get; set; }
-    public List<Product> Products { get; set; }
+    public List<Product> Products { get; set; } = new();
     #endregion
 
     #region constructor
@@ -19,13 +19,21 @@ public class Purchase
     #endregion
 
     #region methods
+    /// <summary>
+    /// Applies the given Discount Strategy to the Purchase total.
+    /// </summary>
+    /// <param name="discount"></param>
     public void SetDiscountStrategy(IDiscountStrategy discount)
     {
         _discount = discount;
     }
-    public decimal GetTotal()
+    /// <summary>
+    /// Returns the sum of all Product prices with any active Discount Strategy applied to the total.
+    /// </summary>
+    /// <returns></returns>
+    public double GetTotal()
     {
-        decimal total = Products.Sum(p => p.Price * p.Quantity);
+        double total = Products.Sum(p => p.Price * p.Quantity);
 
         return _discount.ApplyDiscount(total);
     }

@@ -8,7 +8,7 @@ namespace DesignPatternsWorkshop.Domain.Strategies;
 /// <Returns>Original Base Price unchanged.</Returns>
 public class NoDiscountStrategy : IDiscountStrategy
 {
-    public decimal ApplyDiscount(decimal price)
+    public double ApplyDiscount(double price)
     {
         return price;
     }
