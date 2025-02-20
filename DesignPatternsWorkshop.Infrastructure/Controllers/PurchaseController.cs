@@ -14,9 +14,9 @@ public class PurchaseController : Controller
     #endregion
 
     #region constructor
-    public PurchaseController()
+    public PurchaseController(PurchaseService service)
     {
-        _service = new PurchaseService();
+        _service = service;
     }
     #endregion
 
