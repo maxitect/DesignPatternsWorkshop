@@ -62,5 +62,19 @@ public class PurchaseController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPost]
+    public IActionResult RedoAction()
+    {
+        try
+        {
+            _service.RedoLastAction();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
     #endregion
 }
