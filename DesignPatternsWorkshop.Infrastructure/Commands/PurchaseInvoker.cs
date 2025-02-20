@@ -28,7 +28,7 @@ public class PurchaseInvoker
         if(_undoStack.Count == 0) return;
 
         var command = _undoStack.Pop();
-        command.Undo();
+        command.Revert();
         _redoStack.Push(command);
     }
 

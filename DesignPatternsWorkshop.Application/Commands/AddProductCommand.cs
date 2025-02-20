@@ -23,7 +23,7 @@ public class AddProductCommand : IPurchaseCommand
         _purchase.Products.Add(_product);
     }
 
-    public void Undo()
+    public void Revert()
     {
         _purchase.Products.Remove(_product);
     }
