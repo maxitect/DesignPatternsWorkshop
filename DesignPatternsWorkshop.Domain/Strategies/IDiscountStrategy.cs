@@ -7,5 +7,5 @@ public interface IDiscountStrategy
     /// </summary>
     /// <param name="amount">Base total for a given transaction.</param>
     /// <returns>Final total for a transaction after the discount has been applied.</returns>
-    decimal ApplyDiscount(decimal amount);
+    public double ApplyDiscount(double amount);
 }

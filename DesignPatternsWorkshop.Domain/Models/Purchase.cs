@@ -23,9 +23,9 @@ public class Purchase
     {
         _discount = discount;
     }
-    public decimal GetTotal()
+    public double GetTotal()
     {
-        decimal total = Products.Sum(p => p.Price * p.Quantity);
+        double total = Products.Sum(p => p.Price * p.Quantity);
 
         return _discount.ApplyDiscount(total);
     }

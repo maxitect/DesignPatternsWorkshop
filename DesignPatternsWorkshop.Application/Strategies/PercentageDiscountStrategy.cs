@@ -4,12 +4,12 @@ namespace DesignPatternsWorkshop.Infrastructure.Strategies;
 
 public class PercentageDiscountStrategy : IDiscountStrategy
 {
-    private readonly decimal _percentage;
-    public PercentageDiscountStrategy(decimal percentage)
+    private readonly double _percentage;
+    public PercentageDiscountStrategy(double percentage)
     {
         _percentage = percentage;
     }
-    public decimal ApplyDiscount(decimal amount)
+    public double ApplyDiscount(double amount)
     {
         return (amount * _percentage / 100);
     }
