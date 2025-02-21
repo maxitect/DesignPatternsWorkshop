@@ -28,6 +28,6 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 app.MapControllers();
-app.MapControllerRoute(name: "default", pattern: "/{controller=Purchase}/{action=Index}/{Id?}");
+app.MapControllerRoute(name: "default", pattern: "/{controller=Purchase}/{action=Index}");
 
 app.Run();
