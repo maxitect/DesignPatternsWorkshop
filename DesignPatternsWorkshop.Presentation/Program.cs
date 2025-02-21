@@ -1,3 +1,4 @@
+using DesignPatternsWorkshop.Infrastructure.Services;
 using DesignPatternsWorkshop.Presentation.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,17 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-//builder.Services.AddHttpClient("PurchaseClient", client =>
-//{
-//    client.BaseAddress = new Uri("http://localhost:5168/");
-//});
-//builder.Services.AddSingleton(sp =>
-//{
-//    var factory = sp.GetService<IHttpClientFactory>()!;
-//    var httpClient = factory.CreateClient("PurchaseClient");
-
-//    return httpClient;
-//});
+builder.Services.AddSingleton<PurchaseService>();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -35,5 +27,7 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+app.MapControllers();
+app.MapControllerRoute(name: "default", pattern: "/{controller=Purchase}/{action=Index}/{Id?}");
 
 app.Run();

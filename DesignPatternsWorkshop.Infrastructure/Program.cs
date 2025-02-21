@@ -7,17 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<PurchaseService>();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("WebDesignPatternsWorkshopPolicy", policy =>
-    {
-        policy
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-    });
-});
+
 
 var app = builder.Build();
 
@@ -32,6 +22,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("WebDesignPatternsWorkshopPolicy");
 app.UseHttpsRedirection();
-app.MapControllerRoute("default", "/[Controller]/[Action]/");
 
 app.Run();

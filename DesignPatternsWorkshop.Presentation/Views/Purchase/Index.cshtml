@@ -1,0 +1,28 @@
+﻿@model DesignPatternsWorkshop.Application.DTOs.PurchaseDTO
+@{
+    ViewData["Title"] = "Point of Sale";
+}
+
+<h1>Point of Sale</h1>
+
+<!-- Product Button -->
+<div>
+    <button class="product-button">Oat milk</button>
+    <button class="product-button">OApples</button>
+    <button class="product-button">My Kingdom</button>
+    <button class="product-button">Five kg of manure</button>
+    <button class="product-button">The last sparrow to fall from the sky</button>
+    <button class="product-button">A single sock</button>
+</div>
+
+<!-- List of Products in Purchase -->
+@if (Model.Products.Count > 0)
+{
+    <h2>Products in Purchase:</h2>
+    <ul id="productList">
+        @foreach (var p in Model.Products)
+        {
+            <li><b>@p.Name</b> - @p.Price</li>
+        }
+    </ul>
+}

@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DesignPatternsWorkshop.Infrastructure.Controllers;
 
-[ApiController]
-[Route("/[Controller]/[Action]")]
+[Route("Purchase")]
 public class PurchaseController : Controller
 {
     #region properties
@@ -79,13 +78,13 @@ public class PurchaseController : Controller
         }
     }
 
-    [HttpGet]
-    public IActionResult ViewPurchase()
+    [HttpGet("Index")]
+    public IActionResult Index()
     {
         try
         {
-            var purchase = _service.GetPurchase();
-            return Ok(purchase);
+            PurchaseDTO purchase = _service.GetPurchase();
+            return View(purchase);
         }
         catch (Exception ex)
         {
