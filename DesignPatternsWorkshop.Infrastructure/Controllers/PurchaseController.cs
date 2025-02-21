@@ -1,4 +1,5 @@
 ﻿using DesignPatternsWorkshop.Domain.Models;
+using DesignPatternsWorkshop.Application.DTOs;
 using DesignPatternsWorkshop.Infrastructure.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,12 @@ public class PurchaseController : Controller
 
     #region endpoints
     [HttpPost]
-    public IActionResult AddProduct(Product product)
+    public IActionResult AddProduct(ProductDTO product)
     {
         try
         {
-            _service.AddProduct(product);
+            var newProduct = new Product {  Id = product.Id, Name = product.Name, Price = product.Price, Quantity = product.Quantity };
+            _service.AddProduct(newProduct);
             return Ok(product);
         }
         catch (Exception ex)
@@ -70,6 +72,20 @@ public class PurchaseController : Controller
         {
             _service.RedoLastAction();
             return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    public IActionResult ViewPurchase()
+    {
+        try
+        {
+            var purchase = _service.GetPurchase();
+            return Ok(purchase);
         }
         catch (Exception ex)
         {
