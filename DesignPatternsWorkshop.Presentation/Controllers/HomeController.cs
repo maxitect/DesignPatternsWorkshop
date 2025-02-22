@@ -1,20 +1,19 @@
-﻿using DesignPatternsWorkshop.Domain.Models;
-using DesignPatternsWorkshop.Application.DTOs;
+﻿using DesignPatternsWorkshop.Application.DTOs;
+using DesignPatternsWorkshop.Domain.Models;
 using DesignPatternsWorkshop.Infrastructure.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesignPatternsWorkshop.Infrastructure.Controllers;
 
-[Route("Purchase")]
-public class PurchaseController : Controller
+public class HomeController : Controller
 {
     #region properties
     private PurchaseService _service;
     #endregion
 
     #region constructor
-    public PurchaseController(PurchaseService service)
+    public HomeController(PurchaseService service)
     {
         _service = service;
     }
@@ -26,7 +25,13 @@ public class PurchaseController : Controller
     {
         try
         {
-            var newProduct = new Product {  Id = product.Id, Name = product.Name, Price = product.Price, Quantity = product.Quantity };
+            var newProduct = new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = product.Quantity,
+            };
             _service.AddProduct(newProduct);
             return Ok(product);
         }
@@ -78,7 +83,7 @@ public class PurchaseController : Controller
         }
     }
 
-    [HttpGet("Index")]
+    [HttpGet]
     public IActionResult Index()
     {
         try

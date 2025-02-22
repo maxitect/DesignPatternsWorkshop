@@ -1,5 +1,4 @@
 using DesignPatternsWorkshop.Infrastructure.Services;
-using DesignPatternsWorkshop.Presentation.Components;
 using DesignPatternsWorkshop.Presentation.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,11 +23,9 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
-app.MapStaticAssets();
 app.UseStaticFiles();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.MapControllers();
-app.MapControllerRoute(name: "default", pattern: "/{controller=Purchase}/{action=Index}");
+app.MapControllerRoute(name: "default", pattern: "/{controller=Home}/{action=Index}");
 app.MapHub<PurchaseHub>("/purchase-hub");
 
 app.Run();
