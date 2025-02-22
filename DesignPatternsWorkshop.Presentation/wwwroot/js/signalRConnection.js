@@ -25,6 +25,7 @@ connection.on("UpdatePurchase", function () {
 })
 
 function removeProduct(id, name, price, quantity) {
+  console.log(`removing product id - ${id}`)
   const product = {
     id,
     name,
