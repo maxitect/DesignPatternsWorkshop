@@ -1,20 +1,54 @@
-﻿@model DesignPatternsWorkshop.Application.DTOs.PurchaseDTO
+﻿@using DesignPatternsWorkshop.Presentation.Services
+@model DesignPatternsWorkshop.Application.DTOs.PurchaseDTO
+@inject SignalRClientService _client;
 @{
     ViewData["Title"] = "Point of Sale";
 }
 
 <h1>Point of Sale</h1>
 
-<!-- Product Button -->
 <div>
-    <button class="product-button">Oat milk</button>
-    <button class="product-button">OApples</button>
-    <button class="product-button">My Kingdom</button>
-    <button class="product-button">Five kg of manure</button>
-    <button class="product-button">The last sparrow to fall from the sky</button>
-    <button class="product-button">A single sock</button>
+    <button class="product-button" OnClick="addProduct('Oat milk', 2, 1)">Oat milk</button>
+    <button class="product-button" OnClick="addProduct('Apples', 1, 1)">Apples</button>
+    <button class="product-button" OnClick="addProduct('My Kingdom', 10000000, 1)">My Kingdom</button>
+    <button class="product-button" OnClick="addProduct('Manure', 52, 1)">Five kg of manure</button>
+    <button class="product-button" OnClick="addProduct('Sparrow, last', 1, 0)">The last sparrow to fall from the sky</button>
+    <button class="product-button" OnClick="addProduct('Sock', 25, 1)">A single sock</button>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:5130/purchase-hub")
+        .withAutomaticReconnect()
+        .build()
+
+    connection.start().catch(error => console.error(error.toString()))
+
+    function addProduct(name, price, quantity) {
+    const product = {
+        id: Math.floor(Math.random() * 1000).toString(),
+        name: name,
+        price: price,
+        quantity: quantity,
+    }
+    connection
+        .invoke("AddProduct", product)
+        .catch(err => console.error(err.toString()))
+    }
+
+    connection.on("UpdatePurchase", function (updatedPurchase) {
+
+    const productList = document.getElementById("productList")
+    productList.innerHTML = ""
+
+    updatedPurchase.products.forEach(p => {
+        const li = document.createElement("li")
+        li.innerHTML = `<b>${p.name}</b> - £${p.price}`
+        productList.appendChild(li)
+    })
+})
+</script>
 <!-- List of Products in Purchase -->
 @if (Model.Products.Count > 0)
 {
@@ -22,7 +56,10 @@
     <ul id="productList">
         @foreach (var p in Model.Products)
         {
-            <li><b>@p.Name</b> - @p.Price</li>
+            <li><b>@p.Name</b> - £@p.Price</li>
         }
     </ul>
+}
+
+@{
 }
