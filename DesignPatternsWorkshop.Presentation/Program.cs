@@ -25,6 +25,7 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
+app.UseStaticFiles();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.MapControllers();
 app.MapControllerRoute(name: "default", pattern: "/{controller=Purchase}/{action=Index}");
