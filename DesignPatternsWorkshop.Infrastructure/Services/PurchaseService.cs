@@ -1,6 +1,6 @@
 ﻿using DesignPatternsWorkshop.Application.Commands;
-using DesignPatternsWorkshop.Application.Strategies;
 using DesignPatternsWorkshop.Application.DTOs;
+using DesignPatternsWorkshop.Application.Strategies;
 using DesignPatternsWorkshop.Domain.Models;
 using DesignPatternsWorkshop.Infrastructure.Commands;
 
@@ -16,7 +16,20 @@ public class PurchaseService
     #region constructor
     public PurchaseService()
     {
-        _purchase = new Purchase();
+        _purchase = new Purchase
+        {
+            Id = 1,
+            Products = new List<Product>
+            {
+                new Product
+                {
+                    Id = "Product1",
+                    Name = "Oat Milk",
+                    Price = 5,
+                    Quantity = 1,
+                },
+            },
+        };
         _invoker = new PurchaseInvoker();
     }
     #endregion

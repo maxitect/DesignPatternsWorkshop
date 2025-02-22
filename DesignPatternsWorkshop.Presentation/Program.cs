@@ -1,13 +1,16 @@
 using DesignPatternsWorkshop.Infrastructure.Services;
 using DesignPatternsWorkshop.Presentation.Components;
+using DesignPatternsWorkshop.Presentation.Hubs;
+using DesignPatternsWorkshop.Presentation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddSingleton<PurchaseService>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<SignalRClientService>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -21,13 +24,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
 app.UseAntiforgery();
 
 app.MapStaticAssets();
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.MapControllers();
 app.MapControllerRoute(name: "default", pattern: "/{controller=Purchase}/{action=Index}");
+app.MapHub<PurchaseHub>("/purchase-hub");
 
 app.Run();

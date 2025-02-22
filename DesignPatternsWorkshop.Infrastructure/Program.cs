@@ -8,7 +8,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
 
 app.UseSwagger();
@@ -20,7 +19,6 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseCors("WebDesignPatternsWorkshopPolicy");
 app.UseHttpsRedirection();
 
 app.Run();
