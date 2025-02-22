@@ -29,4 +29,19 @@ public class PurchaseHub : Hub
         var updatedPurchase = _service.GetPurchase();
         await Clients.All.SendAsync("UpdatePurchase", updatedPurchase);
     }
+
+    public async Task Undo()
+    {
+        _service.UndoLastAction();
+        var updatedPurchase = _service.GetPurchase();
+        await Clients.All.SendAsync("UpdatePurchase", updatedPurchase);
+    }
+
+    public async Task Redo()
+    {
+        _service.RedoLastAction();
+
+        var updatedPurchase = _service.GetPurchase();
+        await Clients.All.SendAsync("UpdatePurchase", updatedPurchase);
+    }
 }

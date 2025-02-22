@@ -1,6 +1,4 @@
-﻿@using DesignPatternsWorkshop.Presentation.Services
-@model DesignPatternsWorkshop.Application.DTOs.PurchaseDTO
-@inject SignalRClientService _client;
+﻿@model DesignPatternsWorkshop.Application.DTOs.PurchaseDTO
 @{
     ViewData["Title"] = "Point of Sale";
 }
@@ -15,41 +13,11 @@
     <button class="product-button" OnClick="addProduct('Sparrow, last', 1, 0)">The last sparrow to fall from the sky</button>
     <button class="product-button" OnClick="addProduct('Sock', 25, 1)">A single sock</button>
 </div>
+<div>
+    <button OnClick="undoLast()">Undo</button>
+    <button OnClick="redoLast()">Redo</button>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-<script>
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:5130/purchase-hub")
-        .withAutomaticReconnect()
-        .build()
-
-    connection.start().catch(error => console.error(error.toString()))
-
-    function addProduct(name, price, quantity) {
-    const product = {
-        id: Math.floor(Math.random() * 1000).toString(),
-        name: name,
-        price: price,
-        quantity: quantity,
-    }
-    connection
-        .invoke("AddProduct", product)
-        .catch(err => console.error(err.toString()))
-    }
-
-    connection.on("UpdatePurchase", function (updatedPurchase) {
-
-    const productList = document.getElementById("productList")
-    productList.innerHTML = ""
-
-    updatedPurchase.products.forEach(p => {
-        const li = document.createElement("li")
-        li.innerHTML = `<b>${p.name}</b> - £${p.price}`
-        productList.appendChild(li)
-    })
-})
-</script>
-<!-- List of Products in Purchase -->
 @if (Model.Products.Count > 0)
 {
     <h2>Products in Purchase:</h2>
@@ -61,5 +29,48 @@
     </ul>
 }
 
-@{
-}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:5130/purchase-hub")
+        .withAutomaticReconnect()
+        .build()
+
+    connection.start().catch(error => console.error(error.toString()))
+
+    function addProduct(name, price, quantity) {
+        const product = {
+            id: Math.floor(Math.random() * 1000).toString(),
+            name: name,
+            price: price,
+            quantity: quantity,
+        }
+        connection
+            .invoke("AddProduct", product)
+            .catch(error => console.error(error.toString()))
+    }
+
+        connection.on("UpdatePurchase", function (updatedPurchase) {
+
+            const productList = document.getElementById("productList")
+            productList.innerHTML = ""
+
+            updatedPurchase.products.forEach(p => {
+                const li = document.createElement("li")
+                li.innerHTML = `<b>${p.name}</b> - £${p.price}`
+                productList.appendChild(li)
+            })
+        })
+
+    function undoLast() {
+        connection
+            .invoke("Undo")
+            .catch(error => console.error(error.toString()))
+    }
+
+    function redoLast() {
+        connection
+            .invoke("Redo")
+            .catch(error => console.error(error.toString()))
+    }
+</script>
