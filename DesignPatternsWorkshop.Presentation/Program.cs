@@ -1,7 +1,6 @@
 using DesignPatternsWorkshop.Infrastructure.Services;
 using DesignPatternsWorkshop.Presentation.Components;
 using DesignPatternsWorkshop.Presentation.Hubs;
-using DesignPatternsWorkshop.Presentation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddSingleton<PurchaseService>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<SignalRClientService>();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
