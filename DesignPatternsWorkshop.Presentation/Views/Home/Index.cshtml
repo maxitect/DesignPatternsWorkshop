@@ -21,12 +21,9 @@
 @if (Model.Products.Count > 0)
 {
     <h2>Products in Purchase:</h2>
-    <ul id="productList">
-        @foreach (var p in Model.Products)
-        {
-            <li><b>@p.Name</b> - £@p.Price</li>
-        }
-    </ul>
+    <div id="purchaseContainer">
+        @await Html.PartialAsync("_ProductList", Model.Products)
+    </div>
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>

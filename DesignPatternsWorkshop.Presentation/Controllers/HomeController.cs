@@ -20,13 +20,25 @@ public class HomeController : Controller
     #endregion
 
     #region endpoints
-    [HttpGet]
     public IActionResult Index()
     {
         try
         {
             PurchaseDTO purchase = _service.GetPurchase();
             return View(purchase);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    public IActionResult GetProductList()
+    {
+        try
+        {
+            PurchaseDTO purchase = _service.GetPurchase();
+            return PartialView("_ProductList", purchase.Products);
         }
         catch (Exception ex)
         {

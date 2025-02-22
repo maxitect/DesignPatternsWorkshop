@@ -3,7 +3,7 @@ const connection = new signalR.HubConnectionBuilder()
   .withAutomaticReconnect()
   .build()
 
-connection.start().catch(error => console.error(error.toString()))
+connection.start().catch(error => console.error(error))
 
 function addProduct(name, price, quantity) {
   const product = {
@@ -12,26 +12,35 @@ function addProduct(name, price, quantity) {
     price: price,
     quantity: quantity,
   }
-  connection
-    .invoke("AddProduct", product)
-    .catch(error => console.error(error.toString()))
+  connection.invoke("AddProduct", product).catch(error => console.error(error))
 }
 
-connection.on("UpdatePurchase", function (updatedPurchase) {
-  const productList = document.getElementById("productList")
-  productList.innerHTML = ""
-
-  updatedPurchase.products.forEach(p => {
-    const li = document.createElement("li")
-    li.innerHTML = `<b>${p.name}</b> - £${p.price}`
-    productList.appendChild(li)
-  })
+connection.on("UpdatePurchase", function () {
+  fetch("Home/GetProductList")
+    .then(response => response.text())
+    .then(
+      html => (document.getElementById("purchaseContainer").innerHTML = html)
+    )
+    .catch(error => console.error(error))
 })
 
+function removeProduct(id, name, price, quantity) {
+  const product = {
+    id,
+    name,
+    price,
+    quantity,
+  }
+
+  connection
+    .invoke("RemoveProduct", product)
+    .catch(error => console.error(error))
+}
+
 function undoLast() {
-  connection.invoke("Undo").catch(error => console.error(error.toString()))
+  connection.invoke("Undo").catch(error => console.error(error))
 }
 
 function redoLast() {
-  connection.invoke("Redo").catch(error => console.error(error.toString()))
+  connection.invoke("Redo").catch(error => console.error(error))
 }

@@ -26,22 +26,35 @@ public class PurchaseHub : Hub
             }
         );
 
-        var updatedPurchase = _service.GetPurchase();
-        await Clients.All.SendAsync("UpdatePurchase", updatedPurchase);
+        await Clients.All.SendAsync("UpdatePurchase");
+    }
+
+    public async Task RemoveProduct(ProductDTO product)
+    {
+        _service.RemoveProduct(
+            new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = product.Quantity,
+            }
+        );
+
+        await Clients.All.SendAsync("UpdatePurchase");
     }
 
     public async Task Undo()
     {
         _service.UndoLastAction();
-        var updatedPurchase = _service.GetPurchase();
-        await Clients.All.SendAsync("UpdatePurchase", updatedPurchase);
+
+        await Clients.All.SendAsync("UpdatePurchase");
     }
 
     public async Task Redo()
     {
         _service.RedoLastAction();
 
-        var updatedPurchase = _service.GetPurchase();
-        await Clients.All.SendAsync("UpdatePurchase", updatedPurchase);
+        await Clients.All.SendAsync("UpdatePurchase");
     }
 }
