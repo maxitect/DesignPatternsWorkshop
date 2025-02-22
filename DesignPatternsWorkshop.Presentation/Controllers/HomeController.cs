@@ -20,69 +20,6 @@ public class HomeController : Controller
     #endregion
 
     #region endpoints
-    [HttpPost]
-    public IActionResult AddProduct(ProductDTO product)
-    {
-        try
-        {
-            var newProduct = new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Quantity = product.Quantity,
-            };
-            _service.AddProduct(newProduct);
-            return Ok(product);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpPost]
-    public IActionResult UndoAction()
-    {
-        try
-        {
-            _service.UndoLastAction();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpGet]
-    public IActionResult GetPurchaseTotal()
-    {
-        try
-        {
-            double total = _service.CalculateTotal();
-            return Ok(total);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpPost]
-    public IActionResult RedoAction()
-    {
-        try
-        {
-            _service.RedoLastAction();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
     [HttpGet]
     public IActionResult Index()
     {
