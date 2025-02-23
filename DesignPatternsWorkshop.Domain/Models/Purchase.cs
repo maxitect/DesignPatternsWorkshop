@@ -37,5 +37,10 @@ public class Purchase
 
         return _discount.ApplyDiscount(total);
     }
+
+    public IDiscountStrategy GetDiscount()
+    {
+        return _discount;
+    }
     #endregion
 }

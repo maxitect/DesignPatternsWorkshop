@@ -2,9 +2,24 @@
 
 namespace DesignPatternsWorkshop.Application.Commands;
 
-public record RemoveProductCommand(Purchase purchase, Product product) : IPurchaseCommand
+public record RemoveProductCommand : IPurchaseCommand
 {
-    public void Execute() => purchase.Products.Remove(product);
+    #region properties
+    private readonly Product _product;
+    private readonly Purchase _purchase;
+    #endregion
 
-    public void Revert() => purchase.Products.Add(product);
+    #region constructor
+    public RemoveProductCommand(Purchase purchase, Product product)
+    {
+        _product = purchase.Products.FirstOrDefault(p => p.Id == product.Id)!;
+        _purchase = purchase;
+    }
+    #endregion
+
+    #region methods
+    public void Execute() => _purchase.Products.Remove(_product);
+
+    public void Revert() => _purchase.Products.Add(_product);
+    #endregion
 }

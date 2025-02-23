@@ -1,4 +1,5 @@
 ﻿using DesignPatternsWorkshop.Application.Commands;
+using DesignPatternsWorkshop.Application.DTOs;
 using DesignPatternsWorkshop.Application.Strategies;
 using DesignPatternsWorkshop.Domain.Models;
 using DesignPatternsWorkshop.Infrastructure.Commands;
@@ -15,13 +16,24 @@ public class PurchaseService
     #region constructor
     public PurchaseService()
     {
-        _purchase = new Purchase();
+        _purchase = new Purchase { Id = new Random().Next(), Products = new List<Product>() };
         _invoker = new PurchaseInvoker();
     }
     #endregion
 
     #region methods
-    public Purchase FinalisePurchase() => _purchase;
+    public PurchaseDTO GetPurchase()
+    {
+        List<ProductDTO> productsList = new();
+        _purchase.Products.ForEach(p =>
+        {
+            var dto = new ProductDTO(p.Id, p.Name, p.Price, p.Quantity);
+            productsList.Add(dto);
+        });
+
+        var purchaseDto = new PurchaseDTO(_purchase.Id, productsList, _purchase.GetDiscount());
+        return purchaseDto;
+    }
 
     public void AddProduct(Product product)
     {

@@ -1,0 +1,28 @@
+﻿@model DesignPatternsWorkshop.Application.DTOs.PurchaseDTO
+@{
+    ViewData["Title"] = "Point of Sale";
+}
+
+<h1>Point of Sale</h1>
+
+<div>
+    <button class="product-button" OnClick="addProduct('Oat milk', 2, 1)">Oat milk</button>
+    <button class="product-button" OnClick="addProduct('Apples', 1, 1)">Apples</button>
+    <button class="product-button" OnClick="addProduct('My Kingdom', 10000000, 1)">My Kingdom</button>
+    <button class="product-button" OnClick="addProduct('Manure', 52, 1)">Five kg of manure</button>
+    <button class="product-button" OnClick="addProduct('Sparrow, last', 1, 0)">The last sparrow to fall from the sky</button>
+    <button class="product-button" OnClick="addProduct('Sock', 25, 1)">A single sock</button>
+</div>
+<div>
+    <button OnClick="undoLast()">Undo</button>
+    <button OnClick="redoLast()">Redo</button>
+</div>
+
+<h2>Products in Purchase:</h2>
+<div id="purchaseContainer">
+    @await Html.PartialAsync("_ProductList", Model.Products)
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script src="~/js/signalRConnection.js"></script>

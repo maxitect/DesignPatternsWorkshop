@@ -2,9 +2,24 @@
 
 namespace DesignPatternsWorkshop.Application.Commands;
 
-public record AddProductCommand(Purchase purchase, Product product) : IPurchaseCommand
+public record AddProductCommand : IPurchaseCommand
 {
-    public void Execute() => purchase.Products.Add(product);
+    #region properties
+    private readonly Purchase _purchase;
+    private readonly Product _product;
+    #endregion
 
-    public void Revert() => purchase.Products.Remove(product);
+    #region constructor
+    public AddProductCommand(Purchase purchase, Product product)
+    {
+        _purchase = purchase;
+        _product = product;
+    }
+    #endregion
+
+    #region methods
+    public void Execute() => _purchase.Products.Add(_product);
+
+    public void Revert() => _purchase.Products.Remove(_product);
+    #endregion
 }
