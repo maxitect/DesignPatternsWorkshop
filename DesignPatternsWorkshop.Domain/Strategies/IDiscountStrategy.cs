@@ -2,6 +2,8 @@
 
 public interface IDiscountStrategy
 {
+    public string Name { get; }
+
     /// <summary>
     /// Applies the current discount stragety to the given total amount of a transaction.
     /// </summary>

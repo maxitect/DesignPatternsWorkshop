@@ -8,6 +8,8 @@ namespace DesignPatternsWorkshop.Domain.Strategies;
 /// <Returns>Original Base Price unchanged.</Returns>
 public class NoDiscountStrategy : IDiscountStrategy
 {
+    public string Name { get; } = "No discount applied";
+
     public double ApplyDiscount(double price)
     {
         return price;
