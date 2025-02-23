@@ -18,13 +18,11 @@
     <button OnClick="redoLast()">Redo</button>
 </div>
 
-@if (Model.Products.Count > 0)
-{
-    <h2>Products in Purchase:</h2>
-    <div id="purchaseContainer">
-        @await Html.PartialAsync("_ProductList", Model.Products)
-    </div>
-}
+<h2>Products in Purchase:</h2>
+<div id="purchaseContainer">
+    @await Html.PartialAsync("_ProductList", Model.Products)
+</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script src="~/js/signalRConnection.js"></script>

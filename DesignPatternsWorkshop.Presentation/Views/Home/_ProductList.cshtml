@@ -1,14 +1,23 @@
 @model List<DesignPatternsWorkshop.Application.DTOs.ProductDTO>;
 
 <ul id="productList">
-  @foreach(var p in Model)
+  @if(Model.Count == 0)
   {
     <li>
-      <p>
-        <b>@p.Name</b>
-        @p.Price      
-      </p>
-      <button OnClick="removeProduct('@p.Id', '@p.Name', @p.Price, @p.Quantity)">remove</button>
+      <p>Select a product to start</p>
     </li>
+  }
+  else
+  {
+    @foreach(var p in Model)
+    {
+      <li>
+        <p>
+          <b>@p.Name</b>
+          @p.Price      
+        </p>
+        <button OnClick="removeProduct('@p.Id', '@p.Name', @p.Price, @p.Quantity)">remove</button>
+      </li>
+    }
   }
 </ul>
