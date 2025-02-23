@@ -15,6 +15,6 @@ public class PercentageDiscountStrategy : IDiscountStrategy
 
     public double ApplyDiscount(double amount)
     {
-        return (amount * _percentage / 100);
+        return amount - (amount * _percentage / 100);
     }
 }
