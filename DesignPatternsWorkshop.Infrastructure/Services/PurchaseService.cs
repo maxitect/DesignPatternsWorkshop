@@ -67,5 +67,11 @@ public class PurchaseService
         var total = _purchase.GetTotal();
         return total;
     }
+
+    public string GetDiscountStrategyName()
+    {
+        var discountName = _purchase.Discount.Name;
+        return discountName;
+    }
     #endregion
 }

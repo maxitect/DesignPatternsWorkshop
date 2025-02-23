@@ -22,10 +22,16 @@ connection.on("UpdatePurchase", function () {
       html => (document.getElementById("purchaseContainer").innerHTML = html)
     )
     .catch(error => console.error(error))
+
+  fetch("Home/GetTotal")
+    .then(response => response.text())
+    .then(
+      html => (document.getElementById("purchaseTotalDisplay").innerHTML = html)
+    )
+    .catch(error => console.error(error))
 })
 
 function removeProduct(id, name, price, quantity) {
-  console.log(`removing product id - ${id}`)
   const product = {
     id,
     name,
