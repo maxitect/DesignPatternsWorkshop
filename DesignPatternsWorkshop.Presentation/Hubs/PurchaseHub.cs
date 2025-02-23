@@ -1,5 +1,7 @@
 ﻿using DesignPatternsWorkshop.Application.DTOs;
+using DesignPatternsWorkshop.Application.Strategies;
 using DesignPatternsWorkshop.Infrastructure.Services;
+using DesignPatternsWorkshop.Infrastructure.Strategies;
 using Microsoft.AspNetCore.SignalR;
 
 namespace DesignPatternsWorkshop.Presentation.Hubs;
@@ -38,6 +40,12 @@ public class PurchaseHub : Hub
     {
         _service.RedoLastAction();
 
+        await Clients.All.SendAsync("UpdatePurchase");
+    }
+
+    public async Task AddDiscount()
+    {
+        _service.ApplyDiscount(new PercentageDiscountStrategy(15));
         await Clients.All.SendAsync("UpdatePurchase");
     }
 }

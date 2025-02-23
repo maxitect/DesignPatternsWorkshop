@@ -2,6 +2,7 @@ import addProduct from "/js/addProduct.js"
 import removeProduct from "/js/removeProduct.js"
 import undoLast from "/js/undoLast.js"
 import redoLast from "/js/redoLast.js"
+import addPercentDiscount from "/js/addPercentDiscount.js"
 
 export const connection = new signalR.HubConnectionBuilder()
   .withUrl("http://localhost:5130/purchase-hub")
@@ -30,3 +31,4 @@ window.addProduct = addProduct
 window.removeProduct = removeProduct
 window.undoLast = undoLast
 window.redoLast = redoLast
+window.addPercentDiscount = addPercentDiscount
