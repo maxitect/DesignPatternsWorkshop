@@ -16,20 +16,7 @@ public class PurchaseService
     #region constructor
     public PurchaseService()
     {
-        _purchase = new Purchase
-        {
-            Id = 1,
-            Products = new List<Product>
-            {
-                new Product
-                {
-                    Id = "Product1",
-                    Name = "Oat Milk",
-                    Price = 5,
-                    Quantity = 1,
-                },
-            },
-        };
+        _purchase = new Purchase { Id = new Random().Next(), Products = new List<Product>() };
         _invoker = new PurchaseInvoker();
     }
     #endregion
