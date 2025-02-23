@@ -1,5 +1,4 @@
 ﻿using DesignPatternsWorkshop.Application.DTOs;
-using DesignPatternsWorkshop.Domain.Models;
 using DesignPatternsWorkshop.Infrastructure.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -16,30 +15,14 @@ public class PurchaseHub : Hub
 
     public async Task AddProduct(ProductDTO product)
     {
-        _service.AddProduct(
-            new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Quantity = product.Quantity,
-            }
-        );
+        _service.AddProduct(product);
 
         await Clients.All.SendAsync("UpdatePurchase");
     }
 
     public async Task RemoveProduct(ProductDTO product)
     {
-        _service.RemoveProduct(
-            new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Quantity = product.Quantity,
-            }
-        );
+        _service.RemoveProduct(product);
 
         await Clients.All.SendAsync("UpdatePurchase");
     }

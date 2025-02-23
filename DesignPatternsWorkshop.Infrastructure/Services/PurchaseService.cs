@@ -9,14 +9,14 @@ namespace DesignPatternsWorkshop.Infrastructure.Services;
 public class PurchaseService
 {
     #region properties
-    private readonly Purchase _purchase;
+    private readonly PurchaseDTO _purchase;
     private readonly PurchaseInvoker _invoker;
     #endregion
 
     #region constructor
     public PurchaseService()
     {
-        _purchase = new Purchase { Id = new Random().Next(), Products = new List<Product>() };
+        _purchase = new PurchaseDTO(new Random().Next(), new List<ProductDTO>());
         _invoker = new PurchaseInvoker();
     }
     #endregion
@@ -31,17 +31,17 @@ public class PurchaseService
             productsList.Add(dto);
         });
 
-        var purchaseDto = new PurchaseDTO(_purchase.Id, productsList, _purchase.GetDiscount());
+        var purchaseDto = _purchase;
         return purchaseDto;
     }
 
-    public void AddProduct(Product product)
+    public void AddProduct(ProductDTO product)
     {
         var command = new AddProductCommand(_purchase, product);
         _invoker.ExecuteCommand(command);
     }
 
-    public void RemoveProduct(Product product)
+    public void RemoveProduct(ProductDTO product)
     {
         var command = new RemoveProductCommand(_purchase, product);
         _invoker.ExecuteCommand(command);

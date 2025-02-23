@@ -1,16 +1,16 @@
-﻿using DesignPatternsWorkshop.Domain.Models;
+﻿using DesignPatternsWorkshop.Application.DTOs;
 
 namespace DesignPatternsWorkshop.Application.Commands;
 
 public record AddProductCommand : IPurchaseCommand
 {
     #region properties
-    private readonly Purchase _purchase;
-    private readonly Product _product;
+    private readonly PurchaseDTO _purchase;
+    private readonly ProductDTO _product;
     #endregion
 
     #region constructor
-    public AddProductCommand(Purchase purchase, Product product)
+    public AddProductCommand(PurchaseDTO purchase, ProductDTO product)
     {
         _purchase = purchase;
         _product = product;
