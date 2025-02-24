@@ -1,5 +1,6 @@
 ﻿using DesignPatternsWorkshop.Application.DTOs;
 using DesignPatternsWorkshop.Application.Strategies;
+using DesignPatternsWorkshop.Infrastructure.Factories;
 using DesignPatternsWorkshop.Infrastructure.Services;
 using DesignPatternsWorkshop.Infrastructure.Strategies;
 using Microsoft.AspNetCore.SignalR;
@@ -9,10 +10,12 @@ namespace DesignPatternsWorkshop.Presentation.Hubs;
 public class PurchaseHub : Hub
 {
     private PurchaseService _service;
+    private DiscountStrategyFactory _factory;
 
-    public PurchaseHub(PurchaseService service)
+    public PurchaseHub(PurchaseService service, DiscountStrategyFactory factory)
     {
         _service = service;
+        _factory = factory;
     }
 
     public async Task AddProduct(ProductDTO product)
@@ -43,9 +46,10 @@ public class PurchaseHub : Hub
         await Clients.All.SendAsync("UpdatePurchase");
     }
 
-    public async Task AddDiscount()
+    public async Task AddDiscount(string discountType, double value)
     {
-        _service.ApplyDiscount(new PercentageDiscountStrategy(15));
+        var discountStrategy = _factory.CreateDiscountStrategy(discountType, value);
+        _service.ApplyDiscount(discountStrategy);
         await Clients.All.SendAsync("UpdatePurchase");
     }
 }

@@ -1,3 +1,4 @@
+using DesignPatternsWorkshop.Infrastructure.Factories;
 using DesignPatternsWorkshop.Infrastructure.Services;
 using DesignPatternsWorkshop.Presentation.Hubs;
 
@@ -8,6 +9,7 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddSingleton<PurchaseService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR();
+builder.Services.AddScoped<DiscountStrategyFactory>();
 
 var app = builder.Build();
 
