@@ -9,7 +9,7 @@
   }
   else
   {
-    @foreach(var p in Model)
+    @foreach(var p in Model.AsEnumerable().Reverse())
     {
       <li>
         <p>

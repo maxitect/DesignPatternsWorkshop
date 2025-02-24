@@ -9,6 +9,10 @@
     <ProjectReference Include="..\DesignPatternsWorkshop.Infrastructure\DesignPatternsWorkshop.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\Index.css" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>

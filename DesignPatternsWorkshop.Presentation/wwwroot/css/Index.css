@@ -1,0 +1,144 @@
+﻿/* General page styling */
+body {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #d3d3d3;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    font-size: 28px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: black;
+    color: limegreen;
+    padding: 10px;
+    border: 3px solid green;
+    width: 80%;
+    text-shadow: 2px 2px black;
+}
+
+/* Product Selector */
+.product-selector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+    width: 80%;
+    background-color: black;
+    border: 3px solid #008080;
+    padding: 10px;
+}
+
+.product-button {
+    font-size: 18px;
+    padding: 15px;
+    cursor: pointer;
+    background-color: teal;
+    color: white;
+    border: 2px solid white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+    .product-button:hover {
+        background-color: darkgreen;
+    }
+
+/* Action Selector */
+.action-selector {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.action-button {
+    font-size: 18px;
+    padding: 10px;
+    background-color: darkred;
+    color: white;
+    border: 2px solid white;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+    .action-button:hover {
+        background-color: red;
+    }
+
+/* Discount Section */
+div > p {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+    button[onclick^="addDiscount"] {
+        background-color: darkblue;
+        color: white;
+        border: 2px solid white;
+    }
+
+        button[onclick^="addDiscount"]:hover {
+            background-color: navy;
+        }
+
+/* Purchase List - Fixed Size with Auto Scroll */
+#purchaseContainer {
+    background-color: #222;
+    color: limegreen;
+    font-size: 18px;
+    padding: 10px;
+    width: 80%;
+    height: 200px; /* Fixed height */
+    overflow-y: auto; /* Enables scrolling when content exceeds height */
+    border: 3px solid green;
+    font-family: "Courier New", Courier, monospace;
+    scrollbar-color: limegreen black; /* Custom scrollbar colors */
+}
+
+    /* Custom Scrollbar (For WebKit Browsers) */
+    #purchaseContainer::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    #purchaseContainer::-webkit-scrollbar-track {
+        background: black;
+    }
+
+    #purchaseContainer::-webkit-scrollbar-thumb {
+        background: limegreen;
+        border-radius: 5px;
+    }
+
+        #purchaseContainer::-webkit-scrollbar-thumb:hover {
+            background: darkgreen;
+        }
+
+/* Purchase Total Display */
+#purchaseTotalDisplay {
+    font-size: 24px;
+    background-color: black;
+    color: limegreen;
+    padding: 10px;
+    width: 80%;
+    text-align: center;
+    border: 3px solid limegreen;
+    margin-top: 15px;
+    font-family: "Courier New", Courier, monospace;
+}
