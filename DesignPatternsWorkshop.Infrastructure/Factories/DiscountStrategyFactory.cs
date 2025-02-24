@@ -9,8 +9,12 @@ public class DiscountStrategyFactory
     {
         switch (discountStrategyName)
         {
-            case "percentile":
+            case "percentage":
                 return new PercentageDiscountStrategy(value);
+            case "fixed":
+                return new FixedDiscountStrategy(value);
+            case "bundle":
+                return new BundleDiscountStrategy(value);
             default:
                 throw new ArgumentException("Invalid discount strategy identifier");
         }
