@@ -1,16 +1,16 @@
-﻿using DesignPatternsWorkshop.Domain.Models;
+﻿using DesignPatternsWorkshop.Application.DTOs;
 
 namespace DesignPatternsWorkshop.Application.Commands;
 
 public record RemoveProductCommand : IPurchaseCommand
 {
     #region properties
-    private readonly Product _product;
-    private readonly Purchase _purchase;
+    private readonly ProductDTO _product;
+    private readonly PurchaseDTO _purchase;
     #endregion
 
     #region constructor
-    public RemoveProductCommand(Purchase purchase, Product product)
+    public RemoveProductCommand(PurchaseDTO purchase, ProductDTO product)
     {
         _product = purchase.Products.FirstOrDefault(p => p.Id == product.Id)!;
         _purchase = purchase;

@@ -6,41 +6,17 @@ namespace DesignPatternsWorkshop.Domain.Models;
 public class Purchase
 {
     #region properties
-    private IDiscountStrategy _discount;
     public int Id { get; set; }
-    public List<Product> Products { get; set; } = new();
+    public List<Product> Products { get; set; }
+    public IDiscountStrategy Discount;
     #endregion
 
     #region constructor
-    public Purchase()
+    public Purchase(int id, List<Product> products, IDiscountStrategy discount)
     {
-        _discount = new NoDiscountStrategy();
-    }
-    #endregion
-
-    #region methods
-    /// <summary>
-    /// Applies the given Discount Strategy to the Purchase total.
-    /// </summary>
-    /// <param name="discount"></param>
-    public void SetDiscountStrategy(IDiscountStrategy discount)
-    {
-        _discount = discount;
-    }
-    /// <summary>
-    /// Returns the sum of all Product prices with any active Discount Strategy applied to the total.
-    /// </summary>
-    /// <returns></returns>
-    public double GetTotal()
-    {
-        double total = Products.Sum(p => p.Price * p.Quantity);
-
-        return _discount.ApplyDiscount(total);
-    }
-
-    public IDiscountStrategy GetDiscount()
-    {
-        return _discount;
+        Id = id;
+        Products = products;
+        Discount = discount;
     }
     #endregion
 }

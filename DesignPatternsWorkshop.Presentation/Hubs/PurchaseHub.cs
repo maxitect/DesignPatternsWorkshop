@@ -1,6 +1,8 @@
 ﻿using DesignPatternsWorkshop.Application.DTOs;
-using DesignPatternsWorkshop.Domain.Models;
+using DesignPatternsWorkshop.Application.Strategies;
+using DesignPatternsWorkshop.Infrastructure.Factories;
 using DesignPatternsWorkshop.Infrastructure.Services;
+using DesignPatternsWorkshop.Infrastructure.Strategies;
 using Microsoft.AspNetCore.SignalR;
 
 namespace DesignPatternsWorkshop.Presentation.Hubs;
@@ -8,38 +10,24 @@ namespace DesignPatternsWorkshop.Presentation.Hubs;
 public class PurchaseHub : Hub
 {
     private PurchaseService _service;
+    private DiscountStrategyFactory _factory;
 
-    public PurchaseHub(PurchaseService service)
+    public PurchaseHub(PurchaseService service, DiscountStrategyFactory factory)
     {
         _service = service;
+        _factory = factory;
     }
 
     public async Task AddProduct(ProductDTO product)
     {
-        _service.AddProduct(
-            new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Quantity = product.Quantity,
-            }
-        );
+        _service.AddProduct(product);
 
         await Clients.All.SendAsync("UpdatePurchase");
     }
 
     public async Task RemoveProduct(ProductDTO product)
     {
-        _service.RemoveProduct(
-            new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Quantity = product.Quantity,
-            }
-        );
+        _service.RemoveProduct(product);
 
         await Clients.All.SendAsync("UpdatePurchase");
     }
@@ -55,6 +43,13 @@ public class PurchaseHub : Hub
     {
         _service.RedoLastAction();
 
+        await Clients.All.SendAsync("UpdatePurchase");
+    }
+
+    public async Task AddDiscount(string discountType, double value)
+    {
+        var discountStrategy = _factory.CreateDiscountStrategy(discountType, value);
+        _service.ApplyDiscount(discountStrategy);
         await Clients.All.SendAsync("UpdatePurchase");
     }
 }
