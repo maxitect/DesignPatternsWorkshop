@@ -6,9 +6,9 @@ public class FixedDiscountStrategy : IDiscountStrategy
 
     public string Name { get; set; } = "Fixed amount discount";
 
-    public FixedDiscountStrategy(double dicountValue)
+    public FixedDiscountStrategy(double discountValue)
     {
-        _discountValue = dicountValue;
+        _discountValue = discountValue;
     }
 
     public double ApplyDiscount(double totalAmount)
