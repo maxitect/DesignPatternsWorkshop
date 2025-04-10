@@ -1,7 +1,6 @@
 ﻿using DesignPatternsWorkshop.Application.Commands;
 using DesignPatternsWorkshop.Application.DTOs;
 using DesignPatternsWorkshop.Application.Strategies;
-using DesignPatternsWorkshop.Domain.Models;
 using DesignPatternsWorkshop.Infrastructure.Commands;
 
 namespace DesignPatternsWorkshop.Infrastructure.Services;
@@ -59,7 +58,8 @@ public class PurchaseService
 
     public void ApplyDiscount(IDiscountStrategy discount)
     {
-        _purchase.SetDiscountStrategy(discount);
+        var command = new AddDiscountCommand(_purchase, discount);
+        _invoker.ExecuteCommand(command);
     }
 
     public double CalculateTotal()
